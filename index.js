@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-// Middleware de CORS simples
+// Libera acesso do front (CORS)
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
@@ -9,6 +9,12 @@ app.use((req, res, next) => {
   next();
 });
 
+// Rota principal (opcional, mas boa para teste)
+app.get("/", (req, res) => {
+  res.send("Backend dos robôs está rodando!");
+});
+
+// Rota que o front vai usar
 app.get("/api", (req, res) => {
   res.json({ mensagem: "Olá, os robôs estão conectados!" });
 });
