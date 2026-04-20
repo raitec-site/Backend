@@ -246,9 +246,7 @@ const membros = [
 
 // LISTA DE MEMBROS
 router.get("/membros", (req, res) => {
-  res.render("quem-somos/membros/index", {
-    membros
-  });
+  res.render("quem-somos/membros/index", { membros });
 });
 
 
@@ -262,9 +260,7 @@ router.get("/membros/:slug", (req, res) => {
     return res.status(404).send("Membro não encontrado");
   }
 
-  res.render("quem-somos/membros/membro", {
-    membro
-  });
+  res.render("quem-somos/membros/membro", { membro });
 });
 
 module.exports = router;

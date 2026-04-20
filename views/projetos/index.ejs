@@ -1,0 +1,35 @@
+<h1>Projetos</h1>
+
+<h2>Projetos Ativos</h2>
+<ul>
+  <% projetos_ativos.forEach(p => { %>
+    <li>
+      <a href="/projetos/<%= p.slug %>">
+        <strong><%= p.nome %></strong>
+      </a>
+    </li>
+  <% }) %>
+</ul>
+
+
+<h2>Projetos Arquivados</h2>
+<ul>
+  <% projetos_arquivados.forEach(p => { %>
+    <li>
+      <a href="/projetos/<%= p.slug %>">
+        <strong><%= p.nome %></strong>
+      </a>
+    </li>
+  <% }) %>
+</ul>
+
+<h2>Projetos Finalizados</h2>
+<ul>
+  <% projetos_finalizados.forEach(p => { %>
+    <li>
+      <a href="/projetos/<%= p.slug %>">
+        <strong><%= p.nome %></strong>
+      </a>
+    </li>
+  <% }) %>
+</ul>
