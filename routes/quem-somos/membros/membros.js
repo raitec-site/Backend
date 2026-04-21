@@ -201,7 +201,7 @@ const membros = [
   },
   {
     nome: "Leticia Romero Ciconini Gomes da Silva",
-    slug: "leticia-ciconin",
+    slug: "leticia-ciconini",
     eixo: "Apoio",
     time: "Processos",
     descricao: "blábláblá..."
