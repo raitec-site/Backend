@@ -8,7 +8,17 @@
 
   <%- include("../partials/header") %>
 
-  <h3>Página da Raipédia</h3>
+  <h1>Raipédia</h1>
+
+    <ul>
+    <% artigos.forEach(a => { %>
+        <li>
+        <a href="/raipedia/<%= a.slug %>">
+            <strong><%= a.nome %></strong>
+        </a>
+        </li>
+    <% }) %>
+    </ul>
 
 </body>
 </html>
