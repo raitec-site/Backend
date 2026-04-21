@@ -1,11 +1,28 @@
-<h1>Notícias</h1>
 
-<ul>
-  <% noticias.forEach(n => { %>
-    <li>
-      <a href="/noticias/<%= n.slug %>">
-        <strong><%= n.nome %></strong> - <%= n.data %>
-      </a>
-    </li>
-  <% }) %>
-</ul>
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>RAITec</title>
+</head>
+<body>
+
+  <%- include("../partials/header") %>
+
+  <h1>Notícias</h1>
+
+    <ul>
+    <% noticias.forEach(n => { %>
+        <li>
+        <a href="/noticias/<%= n.slug %>">
+            <strong><%= n.nome %></strong> - <%= n.data %>
+        </a>
+        </li>
+    <% }) %>
+    </ul>
+
+</body>
+</html>

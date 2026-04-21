@@ -8,12 +8,12 @@
 
   <%- include("../partials/header") %>
 
-  <h1>Eventos</h1>
+  <h1>Extensao</h1>
 
 <ul>
-  <% eventos.forEach(e => { %>
+  <% extensoes.forEach(e => { %>
     <li>
-      <a href="/eventos/<%= e.slug %>">
+      <a href="/extensao/<%= e.slug %>">
         <strong><%= e.nome %></strong>
       </a>
     </li>
