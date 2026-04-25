@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Eixo</title>
+</head>
+<body>
+
+  <%- include("../partials/header") %>
+
+  <h1><%= eixo.nome %></h1>
+
+  <% if (eixo.descricao) { %>
+    <p><%= eixo.descricao %></p>
+  <% } %>
+
+  <a href="/estrutura">Voltar</a>
+
+</body>
+</html>

@@ -32,6 +32,9 @@ app.use("/", noticiasRoutes);
 app.use("/", contatoRoutes);
 
 
+const testeRoutes = require("./routes/teste");
+app.use(testeRoutes);
+
 // rota principal
 app.get("/", (req, res) => {
   res.render("index");

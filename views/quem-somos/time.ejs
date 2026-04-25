@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Time</title>
+</head>
+<body>
+
+  <%- include("../partials/header") %>
+
+  <h1><%= time.nome %></h1>
+
+  <% if (time.descricao) { %>
+    <p><%= time.descricao %></p>
+  <% } %>
+
+  <a href="/estrutura">Voltar</a>
+
+</body>
+</html>

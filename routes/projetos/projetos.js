@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const db = require("../../services/firebaseAdmin");
 
+
+/*
 // DADOS MOCK (temporário)
 const projetos_ativos = [
   {
@@ -245,6 +248,39 @@ router.get("/projetos/:slug", (req, res) => {
   }
 
   res.render("projetos/projeto", { projeto });
+});*/
+
+
+router.get("/projetos", async (req, res) => {
+  try {
+    const snapshot = await db.collection("projetos").get();
+
+    const ativos = [];
+    const arquivados = [];
+    const finalizados = [];
+
+    snapshot.forEach(doc => {
+      const projeto = {
+        id: doc.id,
+        ...doc.data()
+      };
+
+      if (projeto.status === "ativo") {
+        ativos.push(projeto);
+      } else if (projeto.status === "arquivado") {
+        arquivados.push(projeto);
+      } else if (projeto.status === "finalizado") {
+        finalizados.push(projeto);
+      }
+    });
+
+    res.render("projetos/index", { ativos, arquivados, finalizados });
+
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).send("Erro ao buscar projetos");
+  }
 });
+
 
 module.exports = router;

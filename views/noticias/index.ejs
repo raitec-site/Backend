@@ -14,7 +14,8 @@
     <% noticias.forEach(n => { %>
         <li>
         <a href="/noticias/<%= n.slug %>">
-            <strong><%= n.nome %></strong> - <%= n.data %>
+            <strong><%= n.nome %></strong> 
+            <p><%= n.data %></p>
         </a>
         </li>
     <% }) %>
