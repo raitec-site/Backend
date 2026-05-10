@@ -1,7 +1,9 @@
+/*
+
 const express = require("express");
 const router = express.Router();
 const db = require("../../services/firebaseAdmin");
-
+*/
 
 /** 
 // DADOS MOCK (temporário)
@@ -65,6 +67,10 @@ module.exports = router;
 */
 
 
+
+
+
+/*
 // LISTA
 router.get("/estrutura", async (req, res) => {
   try {
@@ -134,5 +140,16 @@ router.get("/times/:slug", async (req, res) => {
   }
 });
 
+
+module.exports = router;
+*/
+
+
+const express = require("express");
+const router = express.Router();
+
+router.get("/", (req, res) => {
+  res.send("estrutura ok");
+});
 
 module.exports = router;
