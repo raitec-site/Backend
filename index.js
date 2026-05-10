@@ -30,15 +30,14 @@ app.use(session({
 // IMPORTAÇÃO DAS ROTAS
 
 const sobreRoutes = require("./routes/quem-somos/sobre");
-
-
 const estruturaRoutes = require("./routes/quem-somos/estrutura");
+/*
 const membrosRoutes = require("./routes/quem-somos/membros/membros");
 const projetosRoutes = require("./routes/projetos/projetos");
 const eventosRoutes = require("./routes/eventos/eventos");
 const extensaoRoutes = require("./routes/extensao/extensao");
 const raipediaRoutes = require("./routes/raipedia/raipedia");
-/*
+
 const processoSeletivoRoutes = require("./routes/processo-seletivo/processo-seletivo");
 const noticiasRoutes = require("./routes/noticias/noticias");
 const contatoRoutes = require("./routes/contato/contato");
@@ -54,12 +53,12 @@ const adminMembrosRoutes = require("./routes/admin/membros");
 app.use("/", sobreRoutes);
 
 app.use("/", estruturaRoutes);
+/*
 app.use("/", membrosRoutes);
 app.use("/", projetosRoutes);
 app.use("/", eventosRoutes);
 app.use("/", extensaoRoutes);
 app.use("/", raipediaRoutes);
-/*
 app.use("/", processoSeletivoRoutes);
 app.use("/", noticiasRoutes);
 app.use("/", contatoRoutes);
