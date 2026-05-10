@@ -33,7 +33,7 @@ app.use(session({
 // =====================
 // ROTAS PÚBLICAS
 // =====================
-
+/*
 const sobreRoutes = require("./routes/quem-somos/sobre");
 const estruturaRoutes = require("./routes/quem-somos/estrutura");
 const membrosRoutes = require("./routes/quem-somos/membros/membros");
@@ -79,7 +79,7 @@ app.use("/admin", adminRoutes);
 app.use("/admin", adminMembrosRoutes);
 app.use("/", authRoutes);
 
-
+*/
 // =====================
 // ROTA PRINCIPAL
 // =====================
