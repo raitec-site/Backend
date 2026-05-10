@@ -28,7 +28,7 @@ app.use(session({
 
 
 // IMPORTAÇÃO DAS ROTAS
-/*
+
 const sobreRoutes = require("./routes/quem-somos/sobre");
 const estruturaRoutes = require("./routes/quem-somos/estrutura");
 const membrosRoutes = require("./routes/quem-somos/membros/membros");
@@ -61,7 +61,7 @@ app.use("/", authRoutes);
 app.use("/", adminRoutes);
 app.use("/", testeRoutes);
 app.use("/admin", adminMembrosRoutes);
-*/
+
 // ROTA PRINCIPAL
 app.get("/", (req, res) => {
   res.render("index");
