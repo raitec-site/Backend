@@ -5,29 +5,34 @@ const session = require("express-session");
 const app = express();
 
 
-// CONFIGURAÇÃO DO EJS
+// =====================
+// CONFIG EJS
+// =====================
 app.set("view engine", "ejs");
-app.set("views", "./views");
+app.set("views", path.join(__dirname, "views"));
 
-// MIDDLEWARES GLOBAIS
 
-// Permite receber dados de formulários
-app.use(express.urlencoded({
-  extended: true
-}));
+// =====================
+// MIDDLEWARES
+// =====================
+
+// Formulários
+app.use(express.urlencoded({ extended: true }));
 
 // Arquivos estáticos
 app.use(express.static(path.join(__dirname, "public")));
 
-// Sessão do usuário
+// Sessão
 app.use(session({
-  secret: "raitec-admin",
+  secret: process.env.SESSION_SECRET || "raitec-admin",
   resave: false,
   saveUninitialized: false
 }));
 
 
-// IMPORTAÇÃO DAS ROTAS
+// =====================
+// ROTAS PÚBLICAS
+// =====================
 
 const sobreRoutes = require("./routes/quem-somos/sobre");
 const estruturaRoutes = require("./routes/quem-somos/estrutura");
@@ -42,34 +47,52 @@ const contatoRoutes = require("./routes/contato/contato");
 const testeRoutes = require("./routes/teste");
 
 
+// =====================
+// ROTAS ADMIN / AUTENTICAÇÃO
+// =====================
+
 const authRoutes = require("./routes/admin/auth");
 const adminRoutes = require("./routes/admin/admin");
 const adminMembrosRoutes = require("./routes/admin/membros");
 
-// USAR ROTAS
-app.use("/", sobreRoutes);
-app.use("/", estruturaRoutes);
-app.use("/", membrosRoutes);
-app.use("/", projetosRoutes);
-app.use("/", eventosRoutes);
-app.use("/", extensaoRoutes);
-app.use("/", raipediaRoutes);
-app.use("/", processoSeletivoRoutes);
-app.use("/", noticiasRoutes);
-app.use("/", contatoRoutes);
-app.use("/", authRoutes);
-app.use("/", adminRoutes);
-app.use("/", testeRoutes);
-app.use("/admin", adminMembrosRoutes);
 
+// =====================
+// USO DAS ROTAS (CORRIGIDO)
+// =====================
+
+// 🔥 IMPORTANTE: cada uma com sua base correta
+
+app.use("/sobre", sobreRoutes);
+app.use("/estrutura", estruturaRoutes);
+app.use("/membros", membrosRoutes);
+app.use("/projetos", projetosRoutes);
+app.use("/eventos", eventosRoutes);
+app.use("/extensao", extensaoRoutes);
+app.use("/raipedia", raipediaRoutes);
+app.use("/processo-seletivo", processoSeletivoRoutes);
+app.use("/noticias", noticiasRoutes);
+app.use("/contato", contatoRoutes);
+app.use("/teste", testeRoutes);
+
+// Admin
+app.use("/admin", adminRoutes);
+app.use("/admin", adminMembrosRoutes);
+app.use("/", authRoutes);
+
+
+// =====================
 // ROTA PRINCIPAL
+// =====================
 app.get("/", (req, res) => {
   res.render("index");
 });
 
 
-// INICIAR SERVIDOR
+// =====================
+// START SERVER
+// =====================
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
   console.log("Servidor rodando na porta", PORT);
 });
