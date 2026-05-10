@@ -37,7 +37,7 @@ const membros = [
     eixo: "Técnico",
     time: "Mídias",
     descricao: "blábláblá...",
-    projetos: ["", "", ""],
+    projetos: ["RaitecHydro", "", ""],
     ativo: true,
     coordenador = []
   },
