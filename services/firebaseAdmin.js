@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const admin = require("firebase-admin");
 
 const privateKey = process.env.FIREBASE_PRIVATE_KEY;

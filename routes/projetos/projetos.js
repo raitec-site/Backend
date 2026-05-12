@@ -1,9 +1,10 @@
+/*v1: com mock de dados
+
 const express = require("express");
 const router = express.Router();
 const db = require("../../services/firebaseAdmin");
 
 
-/*
 // DADOS MOCK (temporário)
 const projetos_ativos = [
   {
@@ -251,6 +252,7 @@ router.get("/projetos/:slug", (req, res) => {
 });*/
 
 
+/*v2: direto do banco
 router.get("/projetos", async (req, res) => {
   try {
     const snapshot = await db.collection("projetos").get();
@@ -282,5 +284,91 @@ router.get("/projetos", async (req, res) => {
   }
 });
 
+
+module.exports = router;*/
+
+
+
+//v3: com a página de projetos, precisa integrar ao banco de dados
+const express = require("express");
+const router = express.Router();
+const db = require("../../services/firebaseAdmin");
+
+// LISTA DE PROJETOS
+router.get("/projetos", async (req, res) => {
+  try {
+    const snapshot = await db.collection("projetos").get();
+
+    const ativos = [];
+    const arquivados = [];
+    const finalizados = [];
+
+    snapshot.forEach(doc => {
+      const projeto = {
+        id: doc.id,
+        ...doc.data()
+      };
+
+      if (projeto.status === "ativo") {
+        ativos.push(projeto);
+      } else if (projeto.status === "arquivado") {
+        arquivados.push(projeto);
+      } else if (projeto.status === "finalizado") {
+        finalizados.push(projeto);
+      }
+    });
+
+    res.render("projetos/index", { ativos, arquivados, finalizados });
+
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).send("Erro ao buscar projetos");
+  }
+});
+
+
+// PROJETO INDIVIDUAL - Buscar por ID ou Slug (do Firebase)
+router.get("/projetos/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Tenta buscar pelo ID direto
+    const docSnapshot = await db.collection("projetos").doc(id).get();
+    
+    if (docSnapshot.exists) {
+      const projeto = {
+        id: docSnapshot.id,
+        ...docSnapshot.data()
+      };
+      
+      return res.render("projetos/projeto", { projeto });
+    }
+
+    // Se não encontrar pelo ID, tenta buscar pelo slug
+    const querySnapshot = await db.collection("projetos")
+      .where("slug", "==", id)
+      .limit(1)
+      .get();
+
+    if (!querySnapshot.empty) {
+      const projeto = {
+        id: querySnapshot.docs[0].id,
+        ...querySnapshot.docs[0].data()
+      };
+      
+      return res.render("projetos/projeto", { projeto });
+    }
+
+    // Se não encontrar, retorna 404
+    return res.status(404).render("erro", { 
+      mensagem: "Projeto não encontrado",
+      titulo: "404 - Projeto não encontrado"
+    });
+
+  } catch (erro) {
+    console.error("Erro ao buscar projeto:", erro);
+    res.status(500).send("Erro ao buscar projeto");
+  }
+});
 
 module.exports = router;
