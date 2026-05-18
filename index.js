@@ -4,7 +4,6 @@ const session = require("express-session");
 
 const app = express();
 
-
 // CONFIGURAÇÃO DO EJS
 app.set("view engine", "ejs");
 
@@ -26,24 +25,23 @@ app.use(session({
   saveUninitialized: false
 }));
 
-
 // IMPORTAÇÃO DAS ROTAS
-
-const sobreRoutes = require("./routes/quem-somos/sobre");
-const estruturaRoutes = require("./routes/quem-somos/estrutura");
-const membrosRoutes = require("./routes/quem-somos/membros/membros");
-const projetosRoutes = require("./routes/projetos/projetos");
-const eventosRoutes = require("./routes/eventos/eventos");
-const extensaoRoutes = require("./routes/extensao/extensao");
-const raipediaRoutes = require("./routes/raipedia/raipedia");
+const authRoutes             = require("./routes/admin/auth");
+const sobreRoutes            = require("./routes/quem-somos/sobre");
+const adminRoutes            = require("./routes/admin/admin");
+const membrosRoutes          = require("./routes/quem-somos/membros/membros");
+const eventosRoutes          = require("./routes/eventos/eventos");
+const contatoRoutes          = require("./routes/contato/contato");
+const extensaoRoutes         = require("./routes/extensao/extensao");
+const projetosRoutes         = require("./routes/projetos/projetos");
+const raipediaRoutes         = require("./routes/raipedia/raipedia");
+const noticiasRoutes         = require("./routes/noticias/noticias");
+const estruturaRoutes        = require("./routes/quem-somos/estrutura");
+const adminMembrosRoutes     = require("./routes/admin/membros");
 const processoSeletivoRoutes = require("./routes/processo-seletivo/processo-seletivo");
-const noticiasRoutes = require("./routes/noticias/noticias");
-const contatoRoutes = require("./routes/contato/contato");
-const testeRoutes = require("./routes/teste");
 
-const authRoutes = require("./routes/admin/auth");
-const adminRoutes = require("./routes/admin/admin");
-const adminMembrosRoutes = require("./routes/admin/membros");
+const adminRaipediaRouter = require("./routes/admin/raipedia");
+app.use(adminRaipediaRouter);
 
 // USAR ROTAS
 app.use("/", sobreRoutes);
@@ -58,7 +56,6 @@ app.use("/", noticiasRoutes);
 app.use("/", contatoRoutes);
 app.use("/", authRoutes);
 app.use("/", adminRoutes);
-app.use("/", testeRoutes);
 app.use("/admin", adminMembrosRoutes);
 
 // ROTA PRINCIPAL

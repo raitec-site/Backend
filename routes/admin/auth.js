@@ -1,18 +1,11 @@
 const express = require("express");
-
 const router = express.Router();
 
-const { auth } =
-  require("../../services/firebase");
-
-const {
-  signInWithEmailAndPassword
-} = require("firebase/auth");
-
+const { auth }                       = require("../../services/firebase");
+const { signInWithEmailAndPassword } = require("firebase/auth");
 
 // TELA LOGIN
 router.get("/login", (req, res) => {
-
   // Se já estiver logado
   // vai direto para admin
   if (req.session.usuario) {
@@ -20,16 +13,11 @@ router.get("/login", (req, res) => {
   }
 
   res.render("auth/login");
-
 });
-
-
 
 // LOGIN
 router.post("/login", async (req, res) => {
-
   try {
-
     const { email, senha } = req.body;
 
     // Login Firebase
@@ -54,18 +42,13 @@ router.post("/login", async (req, res) => {
 
     res.send("Email ou senha inválidos");
   }
-
 });
-
 
 // LOGOUT
 router.get("/logout", (req, res) => {
-
   req.session.destroy(() => {
     res.redirect("/login");
   });
-
 });
-
 
 module.exports = router;

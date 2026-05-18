@@ -22,7 +22,7 @@ function verificarAuth(req, res, next) {
 
 
 // PROTEGE TODAS AS ROTAS
-router.use(verificarAuth);
+// router.use(verificarAuth);
 
 
 // ========================================

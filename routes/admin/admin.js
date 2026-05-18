@@ -1,7 +1,5 @@
 const express = require("express");
-
 const router = express.Router();
-
 
 // PAINEL ADMIN
 router.get("/admin", (req, res) => {
@@ -14,6 +12,5 @@ router.get("/admin", (req, res) => {
   res.render("admin/index");
 
 });
-
 
 module.exports = router;

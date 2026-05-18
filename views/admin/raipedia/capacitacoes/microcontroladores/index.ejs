@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/css/admin.css">
+
+<div class="admin-container">
+
+  <div class="page-header">
+    <h1>Capacitações — Microcontroladores</h1>
+  </div>
+
+  <div class="admin-grid">
+
+    <% capacitacoes.forEach(c => { %>
+    <div class="card">
+        <h2><%= c['nome-micro'] %></h2>
+        <p><%= c['descricao-inicial'] %></p>
+
+        <div class="card-actions">
+          <a href="/admin/raipedia/microcontroladores/<%= c.id %>/editar" class="btn btn-primary">
+            Editar
+          </a>
+        </div>
+    </div>
+    <% }) %>
+
+  </div>
+
+</div>4

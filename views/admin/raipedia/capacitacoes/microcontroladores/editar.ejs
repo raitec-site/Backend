@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin — Editar <%= raipedia['nome-micro'] %></title>
+  
+  <style>
+    :root {
+      --bg:      #07072e;
+      --surface: #0d0d40;
+      --border:  #1a1a6e;
+      --accent:  #09cccc;
+      --text:    #e6e6e6;
+      --muted:   #8888bb;
+      --sidebar-w: 240px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── LAYOUT ── */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 32px 0 48px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      padding: 0 20px 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 20px;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 13px;
+      border-left: 2px solid transparent;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+
+    .nav-item:hover {
+      color: var(--text);
+      background: rgba(9, 204, 204, 0.07);
+    }
+
+    .nav-item.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(9, 204, 204, 0.1);
+    }
+
+    .nav-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+
+    .nav-item.active .nav-dot {
+      opacity: 1;
+    }
+
+    /* ── MAIN ── */
+    main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      padding: 40px 48px 80px;
+      max-width: 860px;
+    }
+
+    .page-header {
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-header h1 {
+      font-size: 20px;
+      color: var(--accent);
+    }
+
+    .page-header p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar {
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    /* ── SECTION PANELS ── */
+    .section-panel {
+      display: none;
+    }
+
+    .section-panel.active {
+      display: block;
+    }
+
+    .section-panel h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    /* ── FIELDS ── */
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      padding: 10px 12px;
+      resize: vertical;
+      min-height: 80px;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* ── AÇÕES ── */
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+
+    .actions-nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-prev, .btn-next {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 5px;
+      padding: 8px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-prev:hover, .btn-next:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-prev:disabled, .btn-next:disabled {
+      opacity: 0.3;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .btn-save {
+      background: var(--accent);
+      color: #07072e;
+      border: none;
+      border-radius: 5px;
+      padding: 9px 28px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-save:hover {
+      opacity: 0.85;
+    }
+  </style>
+
+</head>
+<body>
+
+  <%- include("../../../../partials/header") %>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside>
+      <div class="sidebar-title">Seções</div>
+      <nav>
+        <div class="nav-item active" data-index="0">
+          <span class="nav-dot"></span> Visão Geral
+        </div>
+        <div class="nav-item" data-index="1">
+          <span class="nav-dot"></span> O que é?
+        </div>
+        <div class="nav-item" data-index="2">
+          <span class="nav-dot"></span> Ambiente
+        </div>
+        <div class="nav-item" data-index="3">
+          <span class="nav-dot"></span> Fundamentos
+        </div>
+        <div class="nav-item" data-index="4">
+          <span class="nav-dot"></span> Controle e Protocolos
+        </div>
+        <div class="nav-item" data-index="5">
+          <span class="nav-dot"></span> Tópicos Avançados
+        </div>
+        <div class="nav-item" data-index="6">
+          <span class="nav-dot"></span> Projetos Práticos
+        </div>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main>
+      <div class="page-header">
+        <h1>Editando: <%= raipedia['nome-micro'] %></h1>
+        <p id="progress-label">Seção 1 de 7</p>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 14.28%"></div>
+      </div>
+
+      <form action="/admin/raipedia/<%= raipedia.slug %>" method="POST">
+
+        <!-- PAINEL 0: Visão Geral -->
+        <div class="section-panel active">
+          <h2>Visão Geral</h2>
+          <div class="card">
+            <div class="field">
+              <label for="descricao-inicial">Descrição Inicial</label>
+              <textarea id="descricao-inicial" name="descricao-inicial" rows="5"><%= raipedia['descricao-inicial'] %></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAINEL 1: O que é -->
+        <div class="section-panel">
+          <h2>O que é <%= raipedia['nome-micro'] %>?</h2>
+          <div class="card">
+            <div class="field">
+              <label for="historia">História e Filosofia</label>
+              <textarea id="historia" name="historia"><%= raipedia['o-que-e']['historia'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="variantes-de-hardware">Variantes de Hardware</label>
+              <textarea id="variantes-de-hardware" name="variantes-de-hardware"><%= raipedia['o-que-e']['variantes-de-hardware'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="comparacoes-com-outros-mcus">Comparativo com outros MCUs</label>
+              <textarea id="comparacoes-com-outros-mcus" name="comparacoes-com-outros-mcus"><%= raipedia['o-que-e']['comparacoes-com-outros-mcus'] %></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAINEL 2: Ambiente -->
+        <div class="section-panel">
+          <h2>Ambiente de Desenvolvimento</h2>
+          <div class="card">
+            <div class="field">
+              <label for="arduino-ide">Arduino IDE 2.x</label>
+              <textarea id="arduino-ide" name="arduino-ide"><%= raipedia['ambiente-de-desenvolvimento']['arduino-ide'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="plataformIO-vscode">PlatformIO + VS Code</label>
+              <textarea id="plataformIO-vscode" name="plataformIO-vscode"><%= raipedia['ambiente-de-desenvolvimento']['plataformIO-vscode'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="simuladores">Simuladores</label>
+              <textarea id="simuladores" name="simuladores"><%= raipedia['ambiente-de-desenvolvimento']['simuladores'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="outras-possibilidades">Outras Possibilidades</label>
+              <textarea id="outras-possibilidades" name="outras-possibilidades"><%= raipedia['ambiente-de-desenvolvimento']['outras-possibilidades'] %></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAINEL 3: Fundamentos -->
+        <div class="section-panel">
+          <h2>Fundamentos de Programação</h2>
+          <div class="card">
+            <div class="field">
+              <label for="estrutura-do-codigo">Estrutura do Código</label>
+              <textarea id="estrutura-do-codigo" name="estrutura-do-codigo"><%= raipedia['fundamentos-de-programacao']['estrutura-do-codigo'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="descricao-dos-pinos">Pinos e GPIO</label>
+              <textarea id="descricao-dos-pinos" name="descricao-dos-pinos"><%= raipedia['fundamentos-de-programacao']['descricao-dos-pinos'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="io-digital">I/O Digital</label>
+              <textarea id="io-digital" name="io-digital"><%= raipedia['fundamentos-de-programacao']['io-digital'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="comunicacao-serial">Comunicação Serial (UART)</label>
+              <textarea id="comunicacao-serial" name="comunicacao-serial"><%= raipedia['fundamentos-de-programacao']['comunicacao-serial'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="io-analogico">I/O Analógico</label>
+              <textarea id="io-analogico" name="io-analogico"><%= raipedia['fundamentos-de-programacao']['io-analogico'] %></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAINEL 4: Controle e Protocolos -->
+        <div class="section-panel">
+          <h2>Controle e Protocolos</h2>
+          <div class="card">
+            <div class="field">
+              <label for="pwm">PWM</label>
+              <textarea id="pwm" name="pwm"><%= raipedia['controle-e-protocolos']['pwm'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="interrupcoes">Interrupções (ISR)</label>
+              <textarea id="interrupcoes" name="interrupcoes"><%= raipedia['controle-e-protocolos']['interrupcoes'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="protocolo-i2c">Protocolo I²C</label>
+              <textarea id="protocolo-i2c" name="protocolo-i2c"><%= raipedia['controle-e-protocolos']['protocolo-i2c'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="protocolo-spi">Protocolo SPI</label>
+              <textarea id="protocolo-spi" name="protocolo-spi"><%= raipedia['controle-e-protocolos']['protocolo-spi'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="timers-de-hardware">Timers de Hardware</label>
+              <textarea id="timers-de-hardware" name="timers-de-hardware"><%= raipedia['controle-e-protocolos']['timers-de-hardware'] %></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAINEL 5: Avançado -->
+        <div class="section-panel">
+          <h2>Tópicos Avançados</h2>
+          <div class="card">
+            <div class="field">
+              <label for="gerenciamento-memoria">Gerenciamento de Memória</label>
+              <textarea id="gerenciamento-memoria" name="gerenciamento-memoria"><%= raipedia['topicos-avancados']['gerenciamento-memoria'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="modos-de-baixo-consumo">Modos de Baixo Consumo</label>
+              <textarea id="modos-de-baixo-consumo" name="modos-de-baixo-consumo"><%= raipedia['topicos-avancados']['modos-de-baixo-consumo'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="multitarefa-com-freeRTOS">Multitarefa com FreeRTOS</label>
+              <textarea id="multitarefa-com-freeRTOS" name="multitarefa-com-freeRTOS"><%= raipedia['topicos-avancados']['multitarefa-com-freeRTOS'] %></textarea>
+            </div>
+            <div class="field">
+              <label for="bootloader-e-fuses">Bootloader e Fuses</label>
+              <textarea id="bootloader-e-fuses" name="bootloader-e-fuses"><%= raipedia['topicos-avancados']['bootloader-e-fuses'] %></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAINEL 6: Projetos -->
+        <div class="section-panel">
+          <h2>Projetos Práticos</h2>
+          <div class="card">
+            <div class="field">
+              <label for="semaforo-com-botao-introducao">Semáforo com Botão</label>
+              <textarea id="semaforo-com-botao-introducao" name="semaforo-com-botao-introducao"><%= raipedia['projetos-praticos']['semaforo-com-botao']['introducao'] %></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- AÇÕES -->
+        <div class="actions">
+          <div class="actions-nav">
+            <button type="button" class="btn-prev" id="btn-prev" disabled>← Anterior</button>
+            <button type="button" class="btn-next" id="btn-next">Próxima →</button>
+          </div>
+          <button type="submit" class="btn-save">Salvar Alterações</button>
+        </div>
+
+      </form>
+    </main>
+  </div>
+
+  <script>
+    const TOTAL = 7;
+    let current = 0;
+
+    const navItems     = document.querySelectorAll('.nav-item');
+    const panels       = document.querySelectorAll('.section-panel');
+    const btnPrev      = document.getElementById('btn-prev');
+    const btnNext      = document.getElementById('btn-next');
+    const progressFill  = document.getElementById('progress-fill');
+    const progressLabel = document.getElementById('progress-label');
+
+    function goTo(index) {
+      panels[current].classList.remove('active');
+      navItems[current].classList.remove('active');
+
+      current = index;
+
+      panels[current].classList.add('active');
+      navItems[current].classList.add('active');
+
+      progressFill.style.width = ((current + 1) / TOTAL * 100) + '%';
+      progressLabel.textContent = `Seção ${current + 1} de ${TOTAL}`;
+
+      btnPrev.disabled = current === 0;
+      btnNext.disabled = current === TOTAL - 1;
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => goTo(Number(item.dataset.index)));
+    });
+
+    btnPrev.addEventListener('click', () => goTo(current - 1));
+    btnNext.addEventListener('click', () => goTo(current + 1));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<link rel="stylesheet" href="/css/admin.css">
+
+<%- include("../../../../partials/header") %>
+
+<div class="layout">
+
+  <aside>
+    <div class="sidebar-title">Seções</div>
+    <nav>
+      <div class="nav-item active" data-index="0"><span class="nav-dot"></span> Visão Geral</div>
+      <div class="nav-item" data-index="1"><span class="nav-dot"></span> O que é?</div>
+      <div class="nav-item" data-index="2"><span class="nav-dot"></span> Ambiente</div>
+      <div class="nav-item" data-index="3"><span class="nav-dot"></span> Fundamentos</div>
+      <div class="nav-item" data-index="4"><span class="nav-dot"></span> Controle e Protocolos</div>
+      <div class="nav-item" data-index="5"><span class="nav-dot"></span> Tópicos Avançados</div>
+      <div class="nav-item" data-index="6"><span class="nav-dot"></span> Projetos Práticos</div>
+    </nav>
+  </aside>
+
+  <main>
+
+    <div class="page-header">
+      <h1>Nova Capacitação — Microcontroladores</h1>
+      <p id="progress-label">Seção 1 de 7</p>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill" style="width: 14.28%"></div>
+    </div>
+
+    <form action="/admin/raipedia/capacitacoes/microcontroladores/criar" method="POST">
+
+      <!-- PAINEL 0: Visão Geral -->
+      <div class="section-panel active">
+        <h2>Visão Geral</h2>
+        <div class="card">
+
+          <div class="field">
+            <label for="nome-micro">Nome do Microcontrolador</label>
+            <input type="text" id="nome-micro" name="nome-micro" placeholder="Ex: Arduino, ESP32..." required>
+          </div>
+
+          <div class="field">
+            <label for="slug">Slug (identificador único)</label>
+            <input type="text" id="slug" name="slug" placeholder="Ex: arduino, esp32..." required>
+          </div>
+
+          <div class="field">
+            <label for="descricao-inicial">Descrição Inicial</label>
+            <textarea id="descricao-inicial" name="descricao-inicial" rows="5"></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PAINEL 1: O que é -->
+      <div class="section-panel">
+        <h2>O que é?</h2>
+        <div class="card">
+          <div class="field">
+            <label for="historia">História e Filosofia</label>
+            <textarea id="historia" name="historia"></textarea>
+          </div>
+          <div class="field">
+            <label for="variantes-de-hardware">Variantes de Hardware</label>
+            <textarea id="variantes-de-hardware" name="variantes-de-hardware"></textarea>
+          </div>
+          <div class="field">
+            <label for="comparacoes-com-outros-mcus">Comparativo com outros MCUs</label>
+            <textarea id="comparacoes-com-outros-mcus" name="comparacoes-com-outros-mcus"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL 2: Ambiente -->
+      <div class="section-panel">
+        <h2>Ambiente de Desenvolvimento</h2>
+        <div class="card">
+          <div class="field">
+            <label for="arduino-ide">Arduino IDE 2.x</label>
+            <textarea id="arduino-ide" name="arduino-ide"></textarea>
+          </div>
+          <div class="field">
+            <label for="plataformIO-vscode">PlatformIO + VS Code</label>
+            <textarea id="plataformIO-vscode" name="plataformIO-vscode"></textarea>
+          </div>
+          <div class="field">
+            <label for="simuladores">Simuladores</label>
+            <textarea id="simuladores" name="simuladores"></textarea>
+          </div>
+          <div class="field">
+            <label for="outras-possibilidades">Outras Possibilidades</label>
+            <textarea id="outras-possibilidades" name="outras-possibilidades"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL 3: Fundamentos -->
+      <div class="section-panel">
+        <h2>Fundamentos de Programação</h2>
+        <div class="card">
+          <div class="field">
+            <label for="estrutura-do-codigo">Estrutura do Código</label>
+            <textarea id="estrutura-do-codigo" name="estrutura-do-codigo"></textarea>
+          </div>
+          <div class="field">
+            <label for="descricao-dos-pinos">Pinos e GPIO</label>
+            <textarea id="descricao-dos-pinos" name="descricao-dos-pinos"></textarea>
+          </div>
+          <div class="field">
+            <label for="io-digital">I/O Digital</label>
+            <textarea id="io-digital" name="io-digital"></textarea>
+          </div>
+          <div class="field">
+            <label for="comunicacao-serial">Comunicação Serial (UART)</label>
+            <textarea id="comunicacao-serial" name="comunicacao-serial"></textarea>
+          </div>
+          <div class="field">
+            <label for="io-analogico">I/O Analógico</label>
+            <textarea id="io-analogico" name="io-analogico"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL 4: Controle e Protocolos -->
+      <div class="section-panel">
+        <h2>Controle e Protocolos</h2>
+        <div class="card">
+          <div class="field">
+            <label for="pwm">PWM</label>
+            <textarea id="pwm" name="pwm"></textarea>
+          </div>
+          <div class="field">
+            <label for="interrupcoes">Interrupções (ISR)</label>
+            <textarea id="interrupcoes" name="interrupcoes"></textarea>
+          </div>
+          <div class="field">
+            <label for="protocolo-i2c">Protocolo I²C</label>
+            <textarea id="protocolo-i2c" name="protocolo-i2c"></textarea>
+          </div>
+          <div class="field">
+            <label for="protocolo-spi">Protocolo SPI</label>
+            <textarea id="protocolo-spi" name="protocolo-spi"></textarea>
+          </div>
+          <div class="field">
+            <label for="timers-de-hardware">Timers de Hardware</label>
+            <textarea id="timers-de-hardware" name="timers-de-hardware"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL 5: Avançado -->
+      <div class="section-panel">
+        <h2>Tópicos Avançados</h2>
+        <div class="card">
+          <div class="field">
+            <label for="gerenciamento-memoria">Gerenciamento de Memória</label>
+            <textarea id="gerenciamento-memoria" name="gerenciamento-memoria"></textarea>
+          </div>
+          <div class="field">
+            <label for="modos-de-baixo-consumo">Modos de Baixo Consumo</label>
+            <textarea id="modos-de-baixo-consumo" name="modos-de-baixo-consumo"></textarea>
+          </div>
+          <div class="field">
+            <label for="multitarefa-com-freeRTOS">Multitarefa com FreeRTOS</label>
+            <textarea id="multitarefa-com-freeRTOS" name="multitarefa-com-freeRTOS"></textarea>
+          </div>
+          <div class="field">
+            <label for="bootloader-e-fuses">Bootloader e Fuses</label>
+            <textarea id="bootloader-e-fuses" name="bootloader-e-fuses"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL 6: Projetos -->
+      <div class="section-panel">
+        <h2>Projetos Práticos</h2>
+        <div class="card">
+          <div class="field">
+            <label for="semaforo-com-botao-introducao">Semáforo com Botão</label>
+            <textarea id="semaforo-com-botao-introducao" name="semaforo-com-botao-introducao"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- AÇÕES -->
+      <div class="actions">
+        <div class="actions-nav">
+          <button type="button" class="btn-prev" id="btn-prev" disabled>← Anterior</button>
+          <button type="button" class="btn-next" id="btn-next">Próxima →</button>
+        </div>
+        <button type="submit" class="btn-save">Criar Capacitação</button>
+      </div>
+
+    </form>
+  </main>
+</div>
+
+<script>
+  const TOTAL = 7;
+  let current = 0;
+
+  const navItems      = document.querySelectorAll('.nav-item');
+  const panels        = document.querySelectorAll('.section-panel');
+  const btnPrev       = document.getElementById('btn-prev');
+  const btnNext       = document.getElementById('btn-next');
+  const progressFill  = document.getElementById('progress-fill');
+  const progressLabel = document.getElementById('progress-label');
+
+  function goTo(index) {
+    panels[current].classList.remove('active');
+    navItems[current].classList.remove('active');
+    current = index;
+    panels[current].classList.add('active');
+    navItems[current].classList.add('active');
+    progressFill.style.width = ((current + 1) / TOTAL * 100) + '%';
+    progressLabel.textContent = `Seção ${current + 1} de ${TOTAL}`;
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === TOTAL - 1;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => goTo(Number(item.dataset.index)));
+  });
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+</script>
